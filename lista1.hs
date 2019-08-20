@@ -34,9 +34,11 @@ fatorial x | (x == 1) = 1
 -}
 isPrime x | (x <= 3) = True
           | (x `mod` 2 == 0) = False
-          | otherwise = not foldl (&&) True [isDivisible x y | y <- [3..(x - 1)/2]
 
-isDivisible x y = x `mod` y \= 0
+createInterval x = [3..metadeInteira x]
+isDivisible x y = x `mod` y  /= 0
+
+metadeInteira x = truncate ((x - 1) / 2)
 
 {-
 - Calcula um termo da sequencia de Fibonnacci. Voce pode trabalhar com listas. 
