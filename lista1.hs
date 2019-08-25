@@ -32,13 +32,17 @@ fatorial x | (x == 1) = 1
 - Determina se um numero eh primo ou nao. Preocupe-se apenas em resolver o problema.
 - Nao precisa usar conhecimentos mais sofisticados da teoria dos numeros. Voce pode trabalhar com listas.
 -}
+isPrime :: Integer -> Bool
 isPrime x | (x <= 3) = True
           | (x `mod` 2 == 0) = False
+          | otherwise = all (applyDivisible x) (createInterval x)
 
+createInterval :: Integer -> [Integer]
 createInterval x = [3..metadeInteira x]
+applyDivisible x = (isDivisible x)
 isDivisible x y = x `mod` y  /= 0
-
-metadeInteira x = truncate ((x - 1) / 2)
+metadeInteira :: Integer -> Integer
+metadeInteira x = (x - 1) `div` 2
 
 {-
 - Calcula um termo da sequencia de Fibonnacci. Voce pode trabalhar com listas. 
