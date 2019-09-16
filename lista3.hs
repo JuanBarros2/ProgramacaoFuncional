@@ -65,7 +65,13 @@ sizeBST (Node a left right) = 1 + sizeBST left + sizeBST right
 
 --verifica se uma BT é uma BST
 isBST NIL = True
-isBST (Node a left right) = True
+isBST (Node a NIL NIL) = True
+isBST (Node a left NIL) = (a >= getValueNode(maximumBST (left))) && (isBST (left))
+isBST (Node a NIL right) = (a <= getValueNode(minimumBST (right))) && (isBST (right))
+isBST (Node a left right) = (a >= minL) && (a <= minR) && (isBST (left)) && (isBST (right))
+                    where 
+                        minR = getValueNode(minimumBST (right))
+                        minL = getValueNode(maximumBST (left))
 
 --insere uma nova chave na BST retornando a BST modificada
 insert = undefined
@@ -74,12 +80,20 @@ insert = undefined
 search = undefined
 
 --retorna o elmento maximo da BST
-maximum = undefined
+maximumBST NIL = NIL
+maximumBST (Node a left NIL) = (Node a left NIL)
+maximumBST (Node a _ right) = maximumBST (right)
 
 --retorna o elemento minimo da BST
 minimumBST NIL = NIL
-minimumBST (Node a NIL _) = a
-minimumBST (Node a (Node b c d) _) = minimumBST (Node b c d) 
+-- minimumBST NIL
+minimumBST (Node a NIL right) = (Node a NIL right)
+-- minimumBST (Node 1 (Node 2 NIL NIL) NIL)
+minimumBST (Node a left _) = minimumBST (left) 
+-- minimumBST (Node 1 (Node (-1) (Node (-2) NIL NIL) NIL) NIL)
+
+getValueNode NIL = Nothing
+getValueNode (Node a _ _) = a
 
 --retorna o predecessor de um elemento da BST, caso o elemento esteja na BST
 predecessor = undefined
