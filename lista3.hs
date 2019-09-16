@@ -92,14 +92,13 @@ minimumBST (Node a NIL right) = (Node a NIL right)
 minimumBST (Node a left _) = minimumBST (left) 
 -- minimumBST (Node 1 (Node (-1) (Node (-2) NIL NIL) NIL) NIL)
 
-getValueNode NIL = Nothing
 getValueNode (Node a _ _) = a
 
 --retorna o predecessor de um elemento da BST, caso o elemento esteja na BST
-predecessor = undefined
+predecessor NIL = NIL
 
 --retorna o sucessor de um elemento da BST, caso o elemento esteja na BST
-successor = undefined
+successor NIL = NIL
 
 --remove ume lemento da BST
 remove = undefined
