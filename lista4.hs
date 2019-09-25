@@ -54,7 +54,7 @@ minusE bag1 bag2 = (unionElement bag1 bag2) \\ (intersection bag1 bag2)
  - Testa se este Bag esta incluso em otherBag. Para todo elemento deste bag, sua quantidade
  - deve ser menor or igual a sua quantidade em otherBag.
 -}
-inclusion bag1 bag2 = undefined
+inclusion bag1 bag2 = length([x1| x1 <- nub(bag1), x2 <- nub(bag2), x1 == x2, length (elemIndices x1 bag1) <= length (elemIndices x2 bag2) ]) == length (nub(bag1))
 
 {-
  - Realiza a soma deste Bag com otherBag. A soma de dois bags contem os elementos dos dois bags com suas quantidades somadas. 
