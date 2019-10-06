@@ -51,20 +51,21 @@ metadeInteira x = (x - 1) `div` 2
 {-
 - Calcula um MDC de dois numeros usando o algoritmo de Euclides. 
 -}
-mdc x y = undefined
+mdc x y | y == 0 = x 
+        | otherwise = mdc y (x `mod` y)
 
 {-
 - Calcula um MMC de dois numeros. 
 -}
-mmc x y = undefined
+mmc x y = (x * y) `div` (mdc x y)
 
 {-
 - Determina se dois numeros inteiros positivos sao co-primos. Dois numeros sao co-primos se 
 - o mdc deles for igual a 1. Ex: coprimo 35 64 = True 
 -}
-coprimo x y = undefined
+coprimo x y = mdc x y == 1
 
 {-
 - Calcula a conjectura de Goldbach, que diz que um numero par maior que 2 pode ser escrito como a soma de dois numeros primos. Ex: 28 = 5 + 23.
 -}
-goldbach x = undefined
+goldbach x = (length [y |  y <- [3..x], isPrime y, z <- [3..x], isPrime z, z /= y, z + y == x]) /= 0
