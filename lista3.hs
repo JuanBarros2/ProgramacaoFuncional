@@ -74,11 +74,17 @@ isBST (Node a left right) = (a >= minL) && (a <= minR) && (isBST (left)) && (isB
                         minL = getValueNode(maximumBST (left))
 
 --insere uma nova chave na BST retornando a BST modificada
-insert = undefined
+insert value NIL = (Node value NIL NIL)
+
+insert value (Node a left right) | value < a = (Node a (insert value left) right)
+                                 | otherwise = (Node a left (insert value right))
 
 --retorna o Node da BST contendo o dado procurado ou entao NIL
-search = undefined
-
+search value NIL = NIL
+search value (Node a left right) | value == a = (Node a left right)
+                                 | value < a = search value left
+                                 | otherwise = search value right
+                        
 --retorna o elmento maximo da BST
 maximumBST NIL = NIL
 maximumBST (Node a left NIL) = (Node a left NIL)
@@ -96,14 +102,26 @@ getValueNode (Node a _ _) = a
 
 --retorna o predecessor de um elemento da BST, caso o elemento esteja na BST
 predecessor NIL = NIL
+predecessor (Node _ left _) = maximumBST left
 
 --retorna o sucessor de um elemento da BST, caso o elemento esteja na BST
 successor NIL = NIL
+successor (Node _ _ right) = minimumBST right
 
---remove ume lemento da BST
-remove = undefined
+--remove ume lemento da BST INCOMPLETO
+remove NIL = NIL
+remove (Node _ NIL NIL) = NIL
+remove (Node _ left NIL) = left
+remove (Node _ NIL right) = right
 
 --retorna uma lista com os dados da BST nos diversos tipos de caminhamento
-preOrder = undefined
-order = undefined
-postOrder = undefined
+preOrder NIL = []
+preOrder (Node a left right) = ([a] ++ (preOrder left)) ++ (preOrder right)
+-- preOrder (Node 4 (Node 1 NIL NIL) (Node 8 (Node 5 NIL NIL) NIL)) == [4,1,8,5]
+
+order NIL = []
+order (Node a left right) = ((order left) ++ [a]) ++ (order right)
+-- order (Node 4 (Node 1 NIL NIL) (Node 8 (Node 5 NIL NIL) NIL)) == [1,4,5,8]
+postOrder NIL = []
+postOrder (Node a left right) = ((postOrder left) ++ (postOrder right)) ++ [a]
+-- postOrder (Node 4 (Node 1 NIL NIL) (Node 8 (Node 5 NIL NIL) NIL)) == [1,5,8,4]
